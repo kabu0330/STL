@@ -1,0 +1,24 @@
+자료구조 형태적 분류 3가지
+1. 시퀀스 (Sequence Container)
+- 데이터를 입력한 순서대로 저장
+- 랜덤 인덱스 접근 가능
+- vector, deque, list, array, forwad_list
+
+2. 연관 (Associative Container)
+- 키(Key)를 기준으로 저장
+- 자동으로 정렬되거나 해시(hash)로 빠르게 검색(unordered)
+- map, set, multiset, multimap
+	
+3. 어댑터(Adapter Container)
+- 다른 컨테이너의 기능을 특정 방식으로 바꿔주는 래퍼(wrapper) 컨테이너
+- stack, queue, priority_queue
+
+
+자료구조의 메모리적 분류 2가지
+1. 연속적 / 배열형 (Contiguous)
+- 메모리 공간에 연속적으로 할당
+- vector, array, priority_queue
+
+2. 비연속적 / 노드형 (Non-Contigous)
+- 각 원소를 포인터 등으로 서로 연결
+- list, set, map
