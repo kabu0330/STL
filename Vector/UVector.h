@@ -9,18 +9,20 @@
 std::vector<int> Test;
 
 
-typedef int DataType;
-//template<typename DataType>
+//typedef int DataType;
+template<typename DataType>
 class Uvector
 {
 public:
+	Uvector() {}
+
 	void push_back(DataType _Data)
 	{
 		// 사이즈가 Capacity보다 크면 Capacity를 확장한다.
 		// 얼만큼 확장하는지 정확한 로직은 모른다. 다만 딱 맞게 확장하기보단, 조금 더 여유있게 늘린다.
 		if (Size + 1 > Capacity)
 		{
-			reserve((Capacity * 1.5f) + 1);
+			reserve((Capacity * static_cast<size_t>(1.5)) + 1);
 		}
 
 		Datas[Size] = _Data;
@@ -34,21 +36,21 @@ public:
 			return; // 기존보다 적은 크기를 확보 요청한 경우 무시
 		}
 
-		DataType* PreveData = Datas; // 기존의 데이터는 유지하고
+		DataType* PrevData = Datas; // 기존의 데이터는 유지하고
 
 		Datas = new DataType[_Capacity]; // 메모리 크기 재할당하고
 
 		Capacity = _Capacity; // 크기 늘리고
 
-		if (nullptr != PreveData)
+		if (nullptr != PrevData)
 		{
 			// 데이터 복사
 			for (size_t i = 0; i < Size; i++)
 			{
-				Datas[i] = PreveData[i];
+				Datas[i] = PrevData[i];
 			}
-			delete[] PreveData; // 기존 메모리 삭제
-			PreveData = nullptr;
+			delete[] PrevData; // 기존 메모리 삭제
+			PrevData = nullptr;
 		}
 	}
 
@@ -76,17 +78,12 @@ public:
 		Size = 0; 
 		// capacity는 초기화 안한다.
 
-		delete[] Datas;
-		Datas = nullptr;
+		// 재할당이 필요해서 위험함
+		//delete[] Datas;
+		//Datas = nullptr;
 	}
 
-private:
-	DataType* Datas = nullptr;
-	size_t Capacity = 0;
-	size_t Size = 0;
-
 	// constrcuter destructer
-	//UVector();
 	~Uvector()
 	{
 		if (nullptr != Datas)
@@ -95,6 +92,11 @@ private:
 			Datas = nullptr;
 		}
 	}
+
+private:
+	DataType* Datas = nullptr;
+	size_t Capacity = 0;
+	size_t Size = 0;
 
 	// delete Function
 	Uvector(const Uvector& _Other) = delete;
