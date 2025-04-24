@@ -11,7 +11,7 @@ class UList
 {
 	// UList는 Head, Tail 포인터만 가지고 있고
 	// UListNode는 Data와 Prev, Next 노드 포인터를 가지고 있다.
-	// iterator는 UListNode* 를 하나만 가지고 있고, 연산자를 통해 Next로 이동하거나 Data를 내어줄 수 있다.
+	// iterator는 UListNode* 를 하나만 가지고 있고, 연산자를 통해 Next로 이동하거나 Data를 내어줄 수 있다
 public:
 	class UListNode
 	{
@@ -96,6 +96,10 @@ public:
 	private:
 		UListNode* CurNode = nullptr;
 	};
+
+private:
+	UListNode* HeadNode = nullptr;
+	UListNode* TailNode = nullptr;
 
 public:
 	UList()
@@ -252,9 +256,5 @@ public:
 		}
 		return Count;
 	}
-
-private:
-	UListNode* HeadNode = nullptr;
-	UListNode* TailNode = nullptr;
 };
 

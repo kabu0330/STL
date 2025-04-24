@@ -12,6 +12,11 @@ std::vector<int> Test;
 template<typename DataType>
 class UVector
 {
+private:
+	DataType* Datas = nullptr;
+	size_t Capacity = 0;
+	size_t Size = 0;
+
 public:
 	UVector() {}
 	~UVector()
@@ -101,10 +106,5 @@ public:
 			push_back(0);
 		}
 	}
-
-private:
-	DataType* Datas = nullptr;
-	size_t Capacity = 0;
-	size_t Size = 0;
 };
 
