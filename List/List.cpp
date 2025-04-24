@@ -61,6 +61,7 @@ int main()
 	++InsertIter;
 	MyList.insert(InsertIter, 100);
 
+	size_t Size = MyList.size();
 	std::cout << std::endl;
 	std::cout << "UList Insert Value : " << *(--InsertIter) << std::endl;
 
