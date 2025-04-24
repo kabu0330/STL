@@ -37,7 +37,6 @@ int main()
 
 	UList MyList;
 
-
 	//MyList.erase(StartIter);
 
 	for (int i = 5; i < 10; i++)
@@ -49,32 +48,67 @@ int main()
 		MyList.push_front(i);
 	}
 
-	UList::iterator StartIter = MyList.begin();
-	UList::iterator EndIter = MyList.end();
-	for (; StartIter != EndIter; ++StartIter)
 	{
-		int Value = *StartIter;
-		std::cout << "UList Value : " << Value << std::endl;
+		UList::iterator StartIter = MyList.begin();
+		UList::iterator EndIter = MyList.end();
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			int Value = *StartIter;
+			std::cout << "UList Value : " << Value << std::endl;
+		}
+
+		UList::iterator InsertIter = MyList.begin();
+		++InsertIter;
+		MyList.insert(InsertIter, 100);
+
+		size_t Size = MyList.size();
+		std::cout << std::endl;
+		std::cout << "UList Insert Value : " << *(--InsertIter) << std::endl;
+
+		std::cout << std::endl;
+		UList::iterator AfterStartIter = MyList.begin();
+		UList::iterator AfterEndIter = MyList.end();
+		for (; AfterStartIter != AfterEndIter; ++AfterStartIter)
+		{
+			int Value = *AfterStartIter;
+			std::cout << "pop_back after list : " << Value << std::endl;
+		}
 	}
 
-	UList::iterator InsertIter = MyList.begin();
-	++InsertIter;
-	MyList.insert(InsertIter, 100);
-
-	size_t Size = MyList.size();
-	std::cout << std::endl;
-	std::cout << "UList Insert Value : " << *(--InsertIter) << std::endl;
-
-
-	for (int i = 0; i < 3; i++)
 	{
-		MyList.pop_back();
+		std::cout << std::endl;
+
+		for (int i = 0; i < 2; i++)
+		{
+			MyList.pop_front();
+		}
+
+		UList::iterator StartIter = MyList.begin();
+		UList::iterator EndIter = MyList.end();
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			int Value = *StartIter;
+			std::cout << "pop_front after list : " << Value << std::endl;
+		}
 	}
-	for (int i = 0; i < 2; i++)
 	{
-		MyList.pop_front();
+		std::cout << std::endl;
+
+		for (int i = 0; i < 3; i++)
+		{
+			MyList.pop_back();
+		}
+
+		UList::iterator StartIter = MyList.begin();
+		UList::iterator EndIter = MyList.end();
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			int Value = *StartIter;
+			std::cout << "pop_back after list : " << Value << std::endl;
+		}
 	}
+
 	
-	
+	size_t FinalSize = MyList.size();
 }
 
