@@ -2,7 +2,7 @@
 1. 시퀀스 (Sequence Container)
 - 데이터를 입력한 순서대로 저장
 - 랜덤 인덱스 접근 가능
-- vector, deque, list, array, forwad_list
+- vector, deque, list, array, forward_list
 
 2. 연관 (Associative Container)
 - 키(Key)를 기준으로 저장
