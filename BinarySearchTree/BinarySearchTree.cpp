@@ -1,13 +1,13 @@
 ﻿#include <iostream>
 #include "BST.h"
+#include <map>
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-  
     /*        10
     *     5         15
-    * 1      7    13    17
+    * 1      7    13    20
     *   3       11
     */
 
@@ -20,8 +20,13 @@ int main()
     BST->Insert(7);
     BST->Insert(13);
     BST->Insert(11);
-    BST->Insert(17);
+    BST->Insert(20);
+    BST->Insert(12);
+    
+    BST->PreOrder();
+    std::cout << std::endl;
 
+    //BST->InOrder();
     if (nullptr != BST->Find(1))
     {
         std::cout << "1 is found" << std::endl;
@@ -39,6 +44,11 @@ int main()
     {
         std::cout << "12 is not found" << std::endl;
     }
+
+    std::cout << std::endl;
+    BST->Erase(10);
+    BST->PreOrder();
+    //BST->InOrder();
 
     BST->Release();
     int a = 0;

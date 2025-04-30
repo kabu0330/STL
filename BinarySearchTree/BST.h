@@ -89,6 +89,100 @@ private:
 	}
 
 public:
+	void Erase(int _Data)
+	{
+		Root = Erase_Impl(Root, _Data);
+	}
+private:
+	Node* Erase_Impl(Node* _CurNode, int _Data)
+	{
+		if (nullptr == _CurNode)
+		{
+			return nullptr;
+		}
+
+		int CurData = _CurNode->Data;
+		if (_Data < CurData) // 왼쪽으로 이동
+		{
+			_CurNode->Left = Erase_Impl(_CurNode->Left, _Data);
+		}
+		else if (_Data > CurData) // 오른쪽으로 이동
+		{
+			_CurNode->Right = Erase_Impl(_CurNode->Right, _Data);
+		}
+		else // 제거할 노드를 찾았으면
+		{
+			// 자식 노드가 둘 다 있으면
+			Node* LeftChild = _CurNode->Left;
+			Node* RightChild = _CurNode->Right;
+			if (nullptr != LeftChild && nullptr != RightChild)
+			{
+				Node* Succ = Successor(_CurNode); // 우측 노드의 최소값을 찾는다.
+				_CurNode->Data = Succ->Data; // 값만 대체하고
+				_CurNode->Right = Erase_Impl(_CurNode->Right, Succ->Data); // 삭제는 진짜 우측 노드의 최소값을 제거한다.
+				// 핵심은 포인터를 바꾸는게 아니다. 데이터만 교체하고 데이터를 제공해준 쪽의 리프(Leap)를 삭제하는 것
+			}
+			else
+			{
+				Node* Temp = nullptr;
+				if (nullptr == _CurNode->Left)
+				{
+					Temp = _CurNode->Right;
+				}
+				else
+				{
+					Temp = _CurNode->Left;
+				}
+				delete _CurNode;
+				return Temp;
+			}
+		}
+		return _CurNode;
+	}
+	Node* Successor(Node* _Node)
+	{
+		Node* CurNode = _Node->Right;
+		while (nullptr != CurNode && nullptr != CurNode->Left)
+		{
+			CurNode = CurNode->Left;
+		}
+		return CurNode;
+	}
+
+public:
+	void PreOrder()
+	{
+		PreOrderRecursive(Root);
+	}
+
+private:
+	void PreOrderRecursive(Node* _Node)
+	{
+		if (nullptr != _Node)
+		{
+			std::cout << _Node->Data << ", ";
+			PreOrderRecursive(_Node->Left);
+			PreOrderRecursive(_Node->Right);
+		}
+	}
+
+public:
+	void InOrder()
+	{
+		InOrderRecursive(Root);
+	}
+private:
+	void InOrderRecursive(Node* _Node)
+	{
+		if (nullptr != _Node)
+		{
+			InOrderRecursive(_Node->Left);
+			std::cout << _Node->Data << ", ";
+			InOrderRecursive(_Node->Right);
+		}
+	}
+
+public:
 	void Release()
 	{
 		ReleaseRecursive(Root);

@@ -40,7 +40,7 @@ void PreOrder(UNode* _Node)
 // 1. 왼쪽 서브트리
 // 2. 현재 노드
 // 3. 오른쪽 서브트리
-// 
+// 오름차순, 내림차순으로 구현해야 할 때
 void InOrder(UNode* _Node)
 {
     if (nullptr != _Node)
