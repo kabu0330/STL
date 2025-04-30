@@ -3,4 +3,7 @@
   <ItemGroup>
     <ClCompile Include="BinarySearchTree.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BST.h" />
+  </ItemGroup>
 </Project>
