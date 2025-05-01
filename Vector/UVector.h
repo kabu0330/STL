@@ -1,25 +1,37 @@
 #pragma once
-#include <assert.h>
 #include <vector>
 
+#include <assert.h>
 #include <string>
 #include <Windows.h>
 #define MSGASSERT(VALUE) std::string ErrorText = VALUE; MessageBoxA(nullptr, ErrorText.c_str(), "치명적 에러", MB_OK); assert(false);
 
 std::vector<int> Test;
 
-
 //typedef int DataType;
 template<typename DataType>
-class Uvector
+class UVector
 {
+private:
+	DataType* Datas = nullptr;
+	size_t Capacity = 0;
+	size_t Size = 0;
+
 public:
-	Uvector() {}
+	UVector() {}
+	~UVector()
+	{
+		if (nullptr != Datas)
+		{
+			delete[] Datas;
+			Datas = nullptr;
+		}
+	}
 
 	void push_back(DataType _Data)
 	{
 		// 사이즈가 Capacity보다 크면 Capacity를 확장한다.
-		// 얼만큼 확장하는지 정확한 로직은 모른다. 다만 딱 맞게 확장하기보단, 조금 더 여유있게 늘린다.
+		// 얼만큼 확장하는지는 정확히 알 수 없다. 다만 딱 맞게 확장하기보단, 조금 더 여유있게 늘린다.
 		if (Size + 1 > Capacity)
 		{
 			reserve((Capacity * static_cast<size_t>(1.5)) + 1);
@@ -36,21 +48,21 @@ public:
 			return; // 기존보다 적은 크기를 확보 요청한 경우 무시
 		}
 
-		DataType* PrevData = Datas; // 기존의 데이터는 유지하고
+		DataType* PreveData = Datas; // 1. 기존의 데이터는 유지하고
 
-		Datas = new DataType[_Capacity]; // 메모리 크기 재할당하고
+		Datas = new DataType[_Capacity]; // 2. 메모리 크기 재할당하고
 
-		Capacity = _Capacity; // 크기 늘리고
+		Capacity = _Capacity; // 3. 크기 늘리고
 
-		if (nullptr != PrevData)
+		if (nullptr != PreveData)
 		{
-			// 데이터 복사
+			// 4. 데이터 복사
 			for (size_t i = 0; i < Size; i++)
 			{
-				Datas[i] = PrevData[i];
+				Datas[i] = PreveData[i];
 			}
-			delete[] PrevData; // 기존 메모리 삭제
-			PrevData = nullptr;
+			delete[] PreveData; // 5. 기존 메모리 삭제
+			PreveData = nullptr;
 		}
 	}
 
@@ -58,7 +70,8 @@ public:
 	{
 		if (Size <= _Index)
 		{
-			MSGASSERT("벡터 크기를 초과한 인덱스 접근입니다.");
+			MSGASSERT("vector subscript out of range");
+			return DataType();
 		}
 		return Datas[_Index];
 	}
@@ -77,32 +90,21 @@ public:
 	{
 		Size = 0; 
 		// capacity는 초기화 안한다.
-
-		// 재할당이 필요해서 위험함
-		//delete[] Datas;
-		//Datas = nullptr;
 	}
 
-	// constrcuter destructer
-	~Uvector()
+	void resize(size_t _Size)
 	{
-		if (nullptr != Datas)
+		// 1. 크기를 줄이는거면 
+		if (Size > _Size) 
 		{
-			delete[] Datas;
-			Datas = nullptr;
+			Size = _Size;
+		}
+
+		// 2. 크기를 늘리는거면 0으로 초기화
+		for (size_t i = 0; i < _Size; i++)
+		{
+			push_back(0);
 		}
 	}
-
-private:
-	DataType* Datas = nullptr;
-	size_t Capacity = 0;
-	size_t Size = 0;
-
-	// delete Function
-	Uvector(const Uvector& _Other) = delete;
-	Uvector(Uvector&& _Other) noexcept = delete;
-	Uvector& operator=(const Uvector& _Other) = delete;
-	Uvector& operator=(Uvector&& _Other) noexcept = delete;
-
 };
 

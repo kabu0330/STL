@@ -7,44 +7,56 @@ int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    std::vector<int> STDVector;
+    std::vector<int> Vector;
     for (int i = 0; i < 10; i++)
     {
-        STDVector.push_back(i);
-        std::cout << "vector push : " << STDVector[i] << std::endl;
-        std::cout << "vector size : " << STDVector.size() << std::endl;
-        std::cout << "vector capacity : " << STDVector.capacity() << std::endl;
+        Vector.push_back(i);
+        std::cout << "vector push : " << Vector[i] << std::endl;
+        std::cout << "vector size : " << Vector.size() << std::endl;
+        std::cout << "vector capacity : " << Vector.capacity() << std::endl;
     }
+    
+	std::cout << "vector sizeof : " << sizeof(Vector) << std::endl;
 
-	std::cout << "vector sizeof : " << sizeof(STDVector) << std::endl;
+    //Vector.clear();
 
-    STDVector.clear();
-
-    std::cout << "clear after vector size : " << STDVector.size() << std::endl;
-    std::cout << "clear after vector capacity : " << STDVector.capacity() << std::endl;
+    std::cout << "clear after vector size : " << Vector.size() << std::endl;
+    std::cout << "clear after vector capacity : " << Vector.capacity() << std::endl;
 
     std::cout << std::endl;
-    // 
 
-    Uvector<int> NewVector;
+    Vector.resize(5);
+    std::cout << "resize after vector size : " << Vector.size() << std::endl;
+    std::cout << "resize after vector capacity : " << Vector.capacity() << std::endl;
+
+    std::cout << std::endl;
+
+    UVector<int> MyVector;
     for (int i = 0; i < 10; i++)
     {
-        NewVector.push_back(i);
-        std::cout << "NewVector push : " << NewVector[i] << std::endl;
-        std::cout << "NewVector size : " << NewVector.size() << std::endl;
-        std::cout << "NewVector capacity : " << NewVector.capacity() << std::endl;
+        MyVector.push_back(i);
+        std::cout << "vector push : " << MyVector[i] << std::endl;
+        std::cout << "vector size : " << MyVector.size() << std::endl;
+        std::cout << "vector capacity : " << MyVector.capacity() << std::endl;
     }
 
-    std::cout << "NewVector sizeof : " << sizeof(NewVector) << std::endl;
+    std::cout << "vector sizeof : " << sizeof(MyVector) << std::endl;
 
-    NewVector.clear();
+    MyVector.clear();
 
-    std::cout << "clear after NewVector size : " << NewVector.size() << std::endl;
-    std::cout << "clear after NewVector capacity : " << NewVector.capacity() << std::endl;
+    std::cout << "clear after vector size : " << MyVector.size() << std::endl;
+    std::cout << "clear after vector capacity : " << MyVector.capacity() << std::endl;
 
+    std::cout << std::endl;
 
+    MyVector.resize(5);
 
-    
-    
+    for (size_t i = 0; i < MyVector.size(); i++)
+    {
+        std::cout << "MyVector Value " << i  << " Index : " << MyVector[i] << std::endl;
+    }
 
+    std::cout << "resize after vector size : " << Vector.size() << std::endl;
+    std::cout << "resize after vector capacity : " << Vector.capacity() << std::endl;
+  
 }
