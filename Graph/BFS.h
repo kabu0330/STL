@@ -12,7 +12,7 @@ std::vector<int> BFS_Stack(const std::vector<std::vector<int>>& _Graph, int _Sta
 
 	while (true != Queue.empty())
 	{
-		int CurNode = Queue.back();
+		int CurNode = Queue.front();
 		Queue.pop();
 
 		if (true == Visited[CurNode])
